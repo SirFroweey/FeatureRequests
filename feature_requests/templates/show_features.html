@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Feature Requests Demo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+<script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.js"></script>
+<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="#">Feature requests demo (By David Almendarez)</a>
+        </div>
+    </div>
+    <div id="main" class="container">
+		<table class="table table-striped">
+			<tr>
+				<td>
+					<b>Title</b>
+				</td>
+				<td>
+					<b>Description</b>
+				</td>
+				<td>
+					<b>Options</b>
+				</td>
+		    </tr>
+		    <!-- ko foreach: feature_requests -->
+			<tr>
+				<td>
+					<p data-bind="text: title"></p>
+				</td>
+				<td>
+					<p data-bind="text: description"></p>
+				</td>
+				<td>
+					<button data-bind="click: $parent.beginEdit" class="btn">Edit</button>
+					<button data-bind="click: $parent.remove" class="btn">Delete</button>
+				</td>
+			</tr>
+			<!-- /ko -->
+		</table>
+		<button data-bind="click: beginAdd" class="btn">Request new feature</button>
+    </div>
+
+	<div id="add" class="modal hide fade" tabindex="=1" role="dialog" aria-labelledby="addDialogLabel" aria-hidden="true">
+	    <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	        <h3 id="addDialogLabel">Request new feature</h3>
+	    </div>
+	    <div class="modal-body">
+	        <form class="form-horizontal">
+	            <div class="control-group">
+	                <label class="control-label" for="inputTitle">Feature request</label>
+	                <div class="controls">
+	                    <input data-bind="value: title" type="text" id="inputTitle" placeholder="Feature title" style="width: 150px;">
+	                </div>
+	            </div>
+                <div class="control-group">
+                    <label class="control-label" for="inputDescription">Description</label>
+                    <div class="controls">
+                        <textarea data-bind="value: description" class="form-control" rows="5" id="inputDescription" placeholder="Description" style="width: 300px;"></textarea>
+                    </div>
+                </div>
+	            <div class="control-group">
+	                <label class="control-label" for="inputClient">Client</label>
+	                <div class="controls">
+						<select data-bind="value: client" id="inputClient" class="form-control">
+						    <option value="client-a">Client A</option>
+						    <option value="client-b">Client B</option>
+						    <option value="client-c">Client C</option>
+						</select>
+	                </div>
+	            </div>
+	            <div class="control-group">
+	                <label class="control-label" for="inputPriority">Priority</label>
+	                <div class="controls">
+	                    <input data-bind="value: client_priority" type="text" id="inputPriority" placeholder="1" style="width: 150px;">
+	                </div>
+	            </div>
+	            <div class="control-group">
+	                <label class="control-label" for="inputTargetDate">Target date</label>
+	                <div class="controls">
+						<div class="input-group date" data-provide="datepicker">
+						    <input data-bind="value: target_date" id="inputTargetDate" name="inputTargetDate" type="text" class="form-control">
+						    <div class="input-group-addon">
+						        <span class="glyphicon glyphicon-th"></span>
+						    </div>
+						</div>
+	                </div>
+	            </div>
+	            <div class="control-group">
+	                <label class="control-label" for="inputProductArea">Product area</label>
+	                <div class="controls">
+						<select data-bind="value: product_area" id="inputProductArea" class="form-control">
+						    <option value="policies">Policies</option>
+						    <option value="billing">Billing</option>
+						    <option value="claims">Claims</option>
+						    <option value="reports">Reports</option>
+						</select>
+	                </div>
+	            </div>
+	        </form>
+	    </div>
+	    <div class="modal-footer">
+	        <button data-bind="click: addRequest" class="btn btn-primary">Add request</button>
+	        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+	    </div>
+	</div>
+
+	<div id="edit" class="modal hide fade" tabindex="=1" role="dialog" aria-labelledby="addDialogLabel" aria-hidden="true">
+	    <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	        <h3 id="addDialogLabel">Edit feature</h3>
+	    </div>
+	    <div class="modal-body">
+	        <form class="form-horizontal">
+	            <div class="control-group">
+	                <label class="control-label" for="inputTitle">Feature request</label>
+	                <div class="controls">
+	                    <input data-bind="value: title" type="text" id="inputTitle" placeholder="Feature title" style="width: 150px;">
+	                </div>
+	            </div>
+                <div class="control-group">
+                    <label class="control-label" for="inputDescription">Description</label>
+                    <div class="controls">
+                        <textarea data-bind="value: description" class="form-control" rows="5" id="inputDescription" placeholder="Description" style="width: 300px;"></textarea>
+                    </div>
+                </div>
+	            <div class="control-group">
+	                <label class="control-label" for="inputClient">Client</label>
+	                <div class="controls">
+						<select data-bind="value: client" id="inputClient" class="form-control">
+						    <option value="client-a">Client A</option>
+						    <option value="client-b">Client B</option>
+						    <option value="client-c">Client C</option>
+						</select>
+	                </div>
+	            </div>
+	            <div class="control-group">
+	                <label class="control-label" for="inputPriority">Priority</label>
+	                <div class="controls">
+	                    <input data-bind="value: client_priority" type="text" id="inputPriority" placeholder="1" style="width: 150px;">
+	                </div>
+	            </div>
+	            <div class="control-group">
+	                <label class="control-label" for="inputTargetDate">Target date</label>
+	                <div class="controls">
+						<div class="input-group date" data-provide="datepicker">
+						    <input data-bind="value: target_date" id="inputTargetDate" name="inputTargetDate" type="text" class="form-control">
+						    <div class="input-group-addon">
+						        <span class="glyphicon glyphicon-th"></span>
+						    </div>
+						</div>
+	                </div>
+	            </div>
+	            <div class="control-group">
+	                <label class="control-label" for="inputProductArea">Product area</label>
+	                <div class="controls">
+						<select data-bind="value: product_area" id="inputProductArea" class="form-control">
+						    <option value="policies">Policies</option>
+						    <option value="billing">Billing</option>
+						    <option value="claims">Claims</option>
+						    <option value="reports">Reports</option>
+						</select>
+	                </div>
+	            </div>
+	        </form>
+	    </div>
+	    <div class="modal-footer">
+	        <button data-bind="click: editRequest" class="btn btn-primary">Edit request</button>
+	        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+	    </div>
+	</div>
+
+    <script type="text/javascript">
+
+    convertDatePickerTime = function(value) {
+    /*
+    Convert Bootstrap-DatePicker time (MM/DD/YYYY) into a JavaScript Date object
+    that is understood by our Flask back-end.
+    */
+    var split_date = value.split('/');
+    var month = parseInt(split_date[0])-1;
+    var year = split_date[2];
+    var day = split_date[1];
+    var new_date = new Date(year, month, day, 0, 0, 0)
+    return new_date.toISOString().replace(/\.[0-9]{3}Z/, '');
+    }
+
+    convertFromPythonTime = function(value) {
+    /*
+    Convert python datetime() strings into MM/DD/YYYY format.
+    */
+    var split_dates = value[0].split("-");
+    var month_day_year = split_dates[1] + "/" + split_dates[2] + "/" + split_dates[0];
+    return month_day_year;
+    }
+
+    function RequestsViewModel() {
+        var self = this;
+        var endpoint = '/api/features/';
+        self.feature_requests = ko.observableArray();
+
+        self.apiCall = function(uri, method, data) {
+            var request = {
+                url: uri,
+                type: method,
+                contentType: "application/json",
+                accepts: "application/json",
+                cache: false,
+                dataType: 'json',
+                data: JSON.stringify(data),
+                error: function(xhr) {
+                    console.log("ajax error: " + xhr.status);
+                }
+            };
+            return $.ajax(request);
+        }
+
+        self.beginAdd = function() {
+            $('#add').modal('show');
+        }
+
+        self.beginEdit = function(request) {
+            editRequestViewModel.setRequest(request);
+            $('#edit').modal('show');
+        }
+
+        self.edit = function(request, data) {
+            self.apiCall(endpoint + request.id() + "/", 'PUT', data).done(function(res) {
+                self.updateRequest(request, res);
+            });
+        }
+
+        self.updateRequest = function(request, newRequest) {
+            var i = self.feature_requests.indexOf(request);
+            self.feature_requests()[i].title(newRequest.title);
+            self.feature_requests()[i].description(newRequest.description);
+            self.feature_requests()[i].client(newRequest.client);
+            self.feature_requests()[i].client_priority(newRequest.client_priority);
+            self.feature_requests()[i].target_date(newRequest.target_date);
+            self.feature_requests()[i].product_area(newRequest.product_area);
+        }
+
+        self.remove = function(request) {
+            self.apiCall(endpoint + request.id() + "/", 'DELETE').done(function() {
+                self.feature_requests.remove(request);
+            });
+        }
+
+        self.add = function(featureRequest) {
+            self.apiCall(endpoint, 'POST', featureRequest).done(function(data) {
+                self.feature_requests.push({
+                    id: ko.observable(data.id),
+                    title: ko.observable(data.title),
+                    description: ko.observable(data.description),
+                    client: ko.observable(data.client),
+                    client_priority: ko.observable(data.client_priority),
+                    target_date: ko.observable(data.target_date),
+                    product_area: ko.observable(data.product_area)
+                });
+            });
+        }
+
+        self.apiCall(endpoint, 'GET').done(function(data) {
+            for (var i = 0; i < data.requests.length; i++) {
+                var obj = data.requests[i];
+                    self.feature_requests.push({
+                        id: ko.observable(obj.id),
+                        title: ko.observable(obj.title),
+                        description: ko.observable(obj.description),
+                        client: ko.observable(obj.client),
+                        client_priority: ko.observable(obj.client_priority),
+                        target_date: ko.observable(obj.target_date),
+                        product_area: ko.observable(obj.product_area)
+                    });
+                }
+            });
+    }
+
+    function AddRequestViewModel() {
+        var self = this;
+        self.title = ko.observable();
+        self.description = ko.observable();
+        self.client = ko.observable();
+        self.client_priority = ko.observable();
+        self.target_date = ko.observable();
+        self.product_area = ko.observable();
+
+        self.addRequest = function() {
+            $('#add').modal('hide');
+            requestsViewModel.add({
+                title: self.title(),
+                description: self.description(),
+                client: self.client(),
+                client_priority: self.client_priority(),
+                target_date: convertDatePickerTime(self.target_date()),
+                product_area: self.product_area()
+            });
+            self.title("");
+            self.description("");
+            self.client("");
+            self.client_priority("");
+            self.target_date("");
+            self.product_area("");
+        }
+    }
+
+    function EditRequestViewModel() {
+        var self = this;
+        self.title = ko.observable();
+        self.description = ko.observable();
+        self.client = ko.observable();
+        self.client_priority = ko.observable();
+        self.target_date = ko.observable();
+        self.product_area = ko.observable();
+
+        self.setRequest = function(request) {
+            self.request = request;
+            self.title(request.title());
+            self.description(request.description());
+            self.client(request.client());
+            self.client_priority(request.client_priority());
+            self.target_date(convertFromPythonTime(request.target_date()));
+            self.product_area(request.product_area());
+            $('#edit').modal('show');
+        }
+
+        self.editRequest = function() {
+            $('#edit').modal('hide');
+            requestsViewModel.edit(self.request, {
+                id: self.request.id(),
+                title: self.title(),
+                description: self.description(),
+                client: self.client(),
+                client_priority: self.client_priority(),
+                target_date: convertDatePickerTime(self.target_date()),
+                product_area: self.product_area()
+            });
+        }
+    }
+
+    var requestsViewModel = new RequestsViewModel();
+    var addRequestViewModel = new AddRequestViewModel();
+    var editRequestViewModel = new EditRequestViewModel();
+    ko.applyBindings(requestsViewModel, $('#main')[0]);
+    ko.applyBindings(addRequestViewModel, $('#add')[0]);
+    ko.applyBindings(editRequestViewModel, $('#edit')[0]);
+    </script>
+</body>
+</html>

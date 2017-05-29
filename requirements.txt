@@ -1,0 +1,3 @@
+flask==0.12.2
+sqlalchemy_utils
+Flask-RESTful==0.3.5
