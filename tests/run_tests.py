@@ -3,7 +3,7 @@ from test_api import TestCrudApi
 from test import test_support
 
 test_support.run_unittest(
-	TestCrudApi,
-	DateTimeDumpTestCase,
-	SerializeModelTestCase
+    TestCrudApi,
+    DateTimeDumpTestCase,
+    SerializeModelTestCase
 )
