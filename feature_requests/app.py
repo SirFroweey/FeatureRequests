@@ -8,7 +8,7 @@ from utils import serialize
 from datetime import datetime
 import os
 
-DB_LOCATION = os.path.join(os.getcwd(), "feature_requests.db")
+DB_LOCATION = os.path.join(os.path.dirname(os.path.normpath(__file__)), "feature_requests.db")
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{location}'.format(location=DB_LOCATION)
 db = SQLAlchemy(app)
@@ -21,11 +21,11 @@ def create_first_feature_request():
     if not db.session.query(FeatureRequest).count():
         db.session.add(
             FeatureRequest(
-                '1st Sample',
+                '1 Sample',
                 'A long description',
                 'client-a',
                 1,
-                datetime.utcnow(),
+                datetime(year=2017, month=5, day=29, hour=12, minute=30, second=25),
                 'policies'
             )
         )
