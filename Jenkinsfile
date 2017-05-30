@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        state('Checkout') {
+        stage('Checkout') {
             steps {
                 git 'https://github.com/SirFroweey/FeatureRequests'
             }
