@@ -1,8 +1,8 @@
 # FeatureRequests
 
-A minimal feature requests app designed in Python, Flask and Knockout.js.
+A minimal feature requests app developed in Python (2.7.5), Flask and Knockout.js with the help of Jenkins for CI.
 
-## Running the app
+## Running the app locally
 1. Clone this repository and cd into the newly cloned FeatureRequests directory.
 2. Install prerequisites via `pip install -r requirements.txt`
 3. CD into the feature_requests sub-directory.
@@ -13,5 +13,5 @@ A minimal feature requests app designed in Python, Flask and Knockout.js.
 1. CD into FeatureRequests directory and then the /tests sub-directory.
 2. Run the command `python run_tests.py`.
 
-## Live site
-**To be completed**
+## Live demo
+http://www.persistentmodding.com
