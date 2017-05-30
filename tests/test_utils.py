@@ -5,7 +5,6 @@ from feature_requests.models import Base, FeatureRequest
 from test import test_support
 from datetime import datetime
 import unittest
-import json
 
 class DateTimeDumpTestCase(unittest.TestCase):
     def test_dump1(self):
