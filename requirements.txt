@@ -1,4 +1,5 @@
 flask==0.12.2
 sqlalchemy_utils
+flask_sqlalchemy
 Flask-RESTful==0.3.5
 requests
